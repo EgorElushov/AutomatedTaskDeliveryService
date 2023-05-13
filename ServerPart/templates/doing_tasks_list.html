@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Voting list</title>
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/basic-css.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/time_style.css'%}" />
+     <style>
+        .layer { overflow: scroll; /* Добавляем полосы прокрутки */
+ width: 100%; /* Ширина блока */
+ height: 100%; /* Высота блока */
+ padding: 150px; /* Поля вокруг текста */
+ border: solid 1px black; /* Параметры рамки */
+ }
+    </style>
+</head>
+<body>
+{% include "menu.html" %}
+<div class="layer">
+<div id="voting-list">
+    {% if tasks_count > 0 %}
+        {% for taks in tasks_list %}
+        <div id="voting{{taks.id}}">
+            <p>
+                <a href="../../show/{{taks.id}}"><label>{{taks.name}}</label></a>
+            </p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <label>У вас нет заданий в исполнении</label>
+    {% endif %}
+</div>
+    </div>
+</body>
+</html>

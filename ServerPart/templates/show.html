@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     {% load static %}
+    <meta charset="UTF-8">
+
+     <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <title>{{task.name}}</title>
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates&display=swap" rel="stylesheet">
+    <style>
+    .layer {
+        overflow: scroll;
+        width: 100%; /* Ширина блока */
+        height: 100%; /* Высота блока */
+        padding: 150px; /* Поля вокруг текста */
+        border: solid 1px black; /* Параметры рамки */
+    }
+</style>
+</head>
+<body>
+{% include "menu.html"%}
+
+<div class="layer">
+<label><big>{{ task.name }}</big></label>
+    <p>{{ task.description }}</p>
+<br>
+
+<div id="task_images">
+            {% for pic in task_images%}
+                <img src='{{pic.img.url}}' height="150">
+                {% if loop.index == 4 %}<br>{% endif %}
+            {% endfor %}
+</div>
+<div id="vote">
+         {% if deadline_overdue == True %}
+             <p><label>Дедлайн прошел или задание завершено</label></p>
+         {% else %}
+         <div id = 'timer'></div>
+         <script>
+            function timer() {
+            var nowDate = new Date();
+            var achiveDate = new Date({{ task.deadline.year }}, {{ task.deadline.month }} - 1, {{ task.deadline.day }}, {{ task.deadline.hour }}, {{ task.deadline.minute }}, 0); //Задаем дату, к которой будет осуществляться обратный отсчет
+            var result = (achiveDate - nowDate)+1000;
+            if (result < 0) {
+                var elmnt = document.getElementById('timer');
+                elmnt.innerHTML = ' - : - - : - - : - - ';
+                return undefined;
+            }
+            var seconds = Math.floor((result/1000)%60);
+            var minutes = Math.floor((result/1000/60)%60);
+            var hours = Math.floor((result/1000/60/60)%24);
+            var days = Math.floor(result/1000/60/60/24);
+            if (seconds < 10) seconds = '0' + seconds;
+            if (minutes < 10) minutes = '0' + minutes;
+            if (hours < 10) hours = '0' + hours;
+            var elmnt = document.getElementById('timer');
+            elmnt.innerHTML = days + ':' + hours + ':' + minutes + ':' + seconds;
+                setTimeout(timer, 1000);
+            }
+            window.onload = function() {
+                timer();
+            }
+         </script>
+         {% endif %}
+	</div>
+
+    <div id="likes">
+    {% if exists %}
+        <button id="like-button" type="button" class="button-container" style=" font-size: 10px;">{{ developers_count }}  Убрать меня из исполнителей️</button>
+    {% else %}
+        <button id="like-button" type="button" class="button-container-green" style=" font-size: 10px;">{{ developers_count }} Добавить меня в исполнители</button>
+    {% endif %}
+    Исполнители:
+    {% for developer in developers %}
+        <div>{{ developer.user.username }}</div>
+    {% endfor %}
+    {% if not deadline_overdue and exists %}
+        <button id="done-button" type="button">Завершить выполнение</button>
+    {% endif %}
+    <script>
+        let likeBtn = document.getElementById('like-button')
+        likeBtn.addEventListener('click', () => {
+            if (!{{ exists }}) {
+
+                $.ajax({
+                    type: "POST",
+                    url: '/show/{{task.id}}',
+                    data: {
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                        action: 'add'
+                    },
+
+                    success: function() {
+                        console.log('like work')
+                        location.reload()
+                    },
+                });
+
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: '/show/{{task.id}}',
+                    data: {
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                        action: 'delete'
+                    },
+
+                    success: function() {
+                        console.log('like work')
+                        location.reload()
+                    },
+                });
+
+            }
+        })
+    </script>
+    <script>
+        let doneBtn = document.getElementById('done-button')
+        doneBtn.addEventListener('click', () => {
+            $.ajax({
+                    type: "POST",
+                    url: '/show/{{task.id}}',
+                    data: {
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                        action: 'done'
+                    },
+
+                    success: function() {
+                        console.log('like work')
+                        location.reload()
+                    },
+                });
+        })
+    </script>
+</div>
+
+<div id="comment-section">
+    <div id="comment-edit">
+        <form method="POST">
+            {% csrf_token %}
+            <label>Ваш комментарий:</label><br>
+            <div class = comment
+            data-title = "Расскажите о том, что мы могли бы улучшить.">
+            {{ CommentForm.comment_text }}
+            </div>
+            <br><br>
+            <input type="submit" value="Отправить" style=" font-size: 13px;"class=button-container-green onClick="window.location.href=window.location.href">
+        </form>
+    </div>
+    <div id="comment-display">
+        {% for comment in comments%}
+        <div id = {{comment.id}}, style="border: 1px solid red; margin: 1%; height: 200%">
+            <div>{{comment.user.username}}</div>
+
+                <img src='{{comment.avatar.img.url}}' height="40">
+
+            <span>{{comment.comment_text}}</span>
+            {%if user_id == comment.user.id%}
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden"  value='{{comment.id}}' name="delete_comment"   onClick="window.location.href=window.location.href">
+                <input type="submit" value='Удалить' style=" font-size: 13px;" class=button-container-green name="delete-comment" onClick="window.location.href=window.location.href">
+            </form>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+</body>
+</html>

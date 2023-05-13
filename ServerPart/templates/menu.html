@@ -1,0 +1,32 @@
+<header>
+<div id="menu">
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/basic-css.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates&display=swap" rel="stylesheet">
+    <ul>
+        {% if user.is_superuser %}
+         <li class="menu-button"><a class="menu-text" href="/create_task">Создать задание</a></li>
+        {% endif %}
+        {%for item in menu%}
+         <li class="menu-button"><a class="menu-text" href="{{item.link}}">{{item.label}}</a></li>
+        {%endfor%}
+        {% if user.is_authenticated %}
+        <li class="menu-button"><a class="menu-text" href="/task-list-doing/{{user.id}}">Задания в исполнении</a></li>
+        <li class="menu-button"><a class="menu-text" href="/history/{{user.id}}">История выполнений</a></li>
+        <li class="menu-button" style="float:right"><a class="exit menu-text" href="/logout">Выйти</a></li>
+        <li class="menu-button" style="float:right"><a class="menu-text" href="/lk/{{user.id}}">Личный кабинет</a></li>
+        <li class="menu-button" style="float:right">
+
+            <img src="{{avatar.img.url}}" border="0" height="40">
+
+        </li>
+
+        {% endif %}
+        {% if user.is_anonymous %}
+        <li class="menu-button" style="float:right"><a class="exit menu-text" href="/login">ВОЙТИ</a></li>
+        <li class="menu-button" style="float:right"><a class="sign menu-text" href="/register">РЕГИСТРАЦИЯ</a></li>
+        {% endif %}
+    </ul>
+</div>
+</header>

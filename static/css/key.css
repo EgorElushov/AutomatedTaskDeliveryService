@@ -1,0 +1,142 @@
+
+.container {
+    width: 100%;
+    height: 1080px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    justify-content: space-between;
+    background-color: rgba(51, 51, 51, 1);
+}
+
+.container-panel {
+    left: 10%
+    gap: 62px;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 1;
+    flex-direction: row;
+}
+
+.panel-text {
+    color: rgba(217, 217, 217, 1);
+    height: auto;
+    font-size: 19.125px;
+    font-style: Medium;
+    text-align: left;
+    font-family: Montserrat;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.container-home {
+    gap: 26px;
+    top: 0px;
+    height: 100%;
+    display: flex;
+    padding: 36px 51px 0 0;
+    position: absolute;
+    align-items: center;
+    flex-shrink: 0;
+    flex-direction: column;
+}
+
+.container-tasks {
+    gap: 26px;
+    top: 0px;
+    height: 100%;
+    display: flex;
+    padding: 36px 51px;
+    position: absolute;
+    align-items: center;
+    flex-shrink: 0;
+    flex-direction: column;
+}
+
+.container-create {
+    gap: 10px;
+    top: 0px;
+    height: 100%;
+    display: flex;
+    padding: 36px 51px;
+    position: absolute;
+    align-items: center;
+    flex-shrink: 0;
+    flex-direction: column;
+}
+
+.container-now {
+    gap: 26px;
+    top: 0px;
+    height: 100%;
+    display: flex;
+    padding: 36px 51px;
+    position: absolute;
+    align-items: center;
+    flex-shrink: 0;
+    flex-direction: column;
+}
+
+.container-history {
+    gap: 26px;
+    top: 0px;
+    height: 100%;
+    display: flex;
+    padding: 36px 51px;
+    position: absolute;
+    align-items: center;
+    flex-shrink: 0;
+    flex-direction: column;
+}
+
+.container-lk {
+    gap: 26px;
+    top: 0px;
+    height: 100%;
+    display: flex;
+    padding: 36px 51px;
+    position: absolute;
+    align-items: center;
+    flex-shrink: 0;
+    flex-direction: column;
+}
+
+.container-quit {
+    gap: 26px;
+    top: 0px;
+    height: 100%;
+    display: flex;
+    padding: 36px 51px;
+    position: absolute;
+    align-items: center;
+    flex-shrink: 0;
+    flex-direction: column;
+}
+
+.subtitle-text {
+    top: 69px;
+    color: rgba(217, 217, 217, 1);
+    width: 829px;
+    position: absolute;
+    font-size: 48px;
+    font-style: ExtraBold;
+    text-align: center;
+    font-family: Montserrat;
+    font-weight: 800;
+    line-height: 134.089994430542%;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.field-text {
+    color: rgba(73, 133, 255, 1);
+    height: auto;
+    text-align: left;
+    line-height: 24px;
+}
+

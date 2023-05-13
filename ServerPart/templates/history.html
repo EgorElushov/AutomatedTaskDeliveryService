@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>History</title>
+    {%load static%}
+    <link rel="stylesheet" href="{%static 'css/time_style.css'%}">
+     <style>
+        .layer {
+            overflow: scroll; /* Добавляем полосы прокрутки */
+            width: 100%; /* Ширина блока */
+            height: 100%; /* Высота блока */
+            padding: 150px; /* Поля вокруг текста */
+            border: solid 1px black; /* Параметры рамки */
+        }
+    </style>
+</head>
+<body>
+{%include "menu.html"%}
+<div class="layer">
+<div id="history-list">
+    {% for task in history_development %}
+        <p><a href="../../show/{{ task.id }}"><label>{{ task.name }}</label></a></p>
+    {% endfor %}
+    {% if no_task %}
+        <h1>Вы еще ничего не делали!</h1>
+    {% endif %}
+</div>
+    </div>
+</body>
+</html>

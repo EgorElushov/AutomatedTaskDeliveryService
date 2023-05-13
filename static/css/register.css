@@ -1,0 +1,122 @@
+.group-1 {
+  top: 163px;
+  left: 50%;
+  width: 829px;
+  height: 790px;
+  display: flex;
+  position: absolute;
+  align-items: flex-start;
+  flex-shrink: 1;
+}
+.picture {
+  top: 10%;
+  width: 40%;
+  height: 100%;
+  position: absolute;
+}
+.button-one {
+  top: 643px;
+  left: 279px;
+  width: 272px;
+  height: 52px;
+  display: flex;
+  position: absolute;
+  align-items: flex-start;
+  flex-shrink: 1;
+  border-radius: var(--dl-radius-radius-radius8);
+  background-color: rgba(73, 133, 255, 1);
+}
+.button-text {
+  top: 10px;
+  left: 49px;
+  color: rgba(217, 217, 217, 1);
+  width: 174px;
+  height: auto;
+  position: absolute;
+  font-size: 24px;
+  font-style: Medium;
+  text-align: center;
+  font-family: Montserrat;
+  font-weight: 500;
+  line-height: normal;
+  font-stretch: normal;
+  text-decoration: none;
+}
+
+.text-field-1 {
+  gap: 10px;
+  padding: 5px 5px;
+  top: 248px;
+  left: 245px;
+  width: 340px;
+  height: auto;
+  display: flex;
+  position: absolute;
+  box-shadow: 0px 4px 4px 0px rgba(73, 133, 255, 0.5) ;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-radius: 15px;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(217, 217, 217, 1);
+}
+
+.text-field-2 {
+  gap: 10px;
+  padding: 5px 5px;
+  top: 328px;
+  left: 245px;
+  width: 340px;
+  display: flex;
+  position: absolute;
+  box-shadow: 0px 4px 4px 0px rgba(73, 133, 255, 0.5) ;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-radius: 15px;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(217, 217, 217, 1);
+}
+
+.text-field-3 {
+  gap: 10px;
+  padding: 5px 5px;
+  top: 408px;
+  left: 245px;
+  width: 340px;
+  display: flex;
+  position: absolute;
+  box-shadow: 0px 4px 4px 0px rgba(73, 133, 255, 0.5) ;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-radius: 15px;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(217, 217, 217, 1);
+}
+
+.text-field-4 {
+  gap: 10px;
+  padding: 5px 5px;
+  top: 488px;
+  left: 245px;
+  width: 340px;
+  display: flex;
+  position: absolute;
+  box-shadow: 0px 4px 4px 0px rgba(73, 133, 255, 0.5) ;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-radius: 15px;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(217, 217, 217, 1);
+}
+
+.rectangle-registration {
+  top: 0px;
+  left: 88px;
+  width: 654px;
+  height: 790px;
+  position: absolute;
+  border-radius: 30px;
+}
