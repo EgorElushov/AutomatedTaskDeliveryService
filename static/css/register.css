@@ -23,7 +23,7 @@
   position: absolute;
   align-items: flex-start;
   flex-shrink: 1;
-  border-radius: var(--dl-radius-radius-radius8);
+  border-radius: 8px;
   background-color: rgba(73, 133, 255, 1);
 }
 .button-text {
