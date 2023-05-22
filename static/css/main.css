@@ -1,4 +1,3 @@
-
 .group-1 {
   top: 87px;
   width: 100%;
@@ -62,6 +61,7 @@
   font-stretch: normal;
   text-decoration: none;
 }
+
 .container-buttons {
   gap: 62px;
   top: 60%;
@@ -81,7 +81,7 @@
   font-style: inherit;
   font-size: 1rem;
   position: relative;
-  border-radius: var(--dl-radius-radius-radius8);
+  border-radius: 8px;
   background-color: rgba(73, 133, 255, 1);
   cursor: pointer;
   color: rgba(217, 217, 217, 1);
