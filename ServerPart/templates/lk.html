@@ -1,115 +1,181 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="english">
 <head>
-     <script>
-    function disp(form) {
-        if (form.style.display == "none") {
-            form.style.display = "block";
-        } else {
-            form.style.display = "none";
+    <script>
+        function disp(form) {
+            if (form.style.display == "none") {
+                form.style.display = "block";
+            } else {
+                form.style.display = "none";
+            }
         }
-    }
     </script>
-     <style>
-       .layer { overflow: scroll; /* Добавляем полосы прокрутки */
- width: 100%; /* Ширина блока */
- height: 100%; /* Высота блока */
- padding: 150px; /* Поля вокруг текста */
- border: solid 1px black; /* Параметры рамки */
- }
-    </style>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Voting create</title>
-    <script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.js"></script>
+    <title>Личный кабинет</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8"/>
+    <meta property="twitter:card" content="summary_large_image"/>
     <style>
-        #input-container {
-            display: flex;
-            flex-direction: column;
-            max-width: 400px;
+        html {
+            line-height: 1.15;
+        }
+        body {
+            margin: 0;
+        }
+        * {
+            box-sizing: border-box;
+            border-width: 0;
+            border-style: solid;
+        }
+        button {
+            background-color: transparent;
+        }
+        body {
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            text-transform: none;
+            letter-spacing: normal;
+            line-height: 1.15;
+            color: var(--dl-color-gray-black);
+            background-color: var(--dl-color-gray-white);
+
         }
     </style>
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+            data-tag="font"
+    />
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+            data-tag="font"
+    />
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+            data-tag="font"
+    />
     {% load static %}
-    <link href="https://fonts.googleapis.com/css?family=Poiret+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/basic-css.css' %}">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="{% static 'css/time_style.css'%}" />
+    <link rel="stylesheet" href="{% static 'css/key.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lk.css' %}">
 </head>
 <body>
-
 {% include "menu.html" %}
-<div class="layer">
-<label>Логин: {{login}}</label><br>
-<label>О себе: {{info}}</label>
-<input value="Изменить" type="button" class="button-container"  style=" font-size: 10px; top: -10px" onclick="disp(document.getElementById('info'))" />
-
-    <form method="POST">
-        {% csrf_token %}
-        <div class = comment
-             data-title = "Расскажите о себе!">
-             {{form_info.info}}
+<div>
+    <link href="./frame2.css" rel="stylesheet"/>
+    <div class="container">
+        <div class="group-1">
+            <img
+                    src="{% static 'img/main.png' %}"
+                    alt="main"
+                    class="picture"
+            />
         </div>
-        <br><br>
-        <input type="submit" class=button-container-green style=" font-size: 11px;" value="Сохранить изменения">
-    </form>
+        <span class="title-text"><span>Личный кабинет</span></span>
+        <span class="lower-title-text">
+            <span>Ваша личная страница</span>
+          </span>
+        <div class="lk-container">
+            <div>
+                <span class="login-text"><span>Логин</span></span>
+                <div class="login-field">
+                    <div class="fieldWrapper">
+                        {{ form.csrfmiddlewaretoken }}
+                    </div>
+                    <div>
+                        <div class="text-field-1">
+                            <div class="fieldWrapper">
+                                <span class="loginfield-text">{{ login }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    <span class="avatar-text"><span>Аватар</span></span>
+                    <div class="avatar-field">
+                        <table align="center" cellpadding="10">
+                            <td>{{ ImgForm.image }}</td>
+                        </table>
+                    </div>
+                    <div class="button-one">
+                        <button type="submit" class="button-text">Сохранить</button>
+                    </div>
+                </form>
+                <div class="avatar-box">
+                    <img src="{{ avatar.img.url }}" border="0" height=100% width=100%>
+                </div>
+                <span class="description-text"><span>Описание</span></span>
+                <form method="POST">
+                    <div class="description-box">
+                        {% csrf_token %}
+                        <table align="center" cellpadding="10">
+                            <div class="comment">
+                                <tr>
+                                    <td>{{ form_info.info }}</td>
+                                </tr>
+                            </div>
+                        </table>
+                        <span class="descriptionbox-text">{{ info }}</span>
+                    </div>
+                    <div class="button-two">
+                        <button type="submit" class="button-text">Сохранить</button>
+                    </div>
+                </form>
+                <div class="button-three">
+                    <button type="submit" class="button-text" onclick="disp(document.getElementById('pass'))">Изменить
+                        пароль
+                    </button>
+                </div>
+
+                <form method="POST">
+                    <div id="pass" title="Смена пароля" class="passwords-box" style="display: none;">
+                        {% csrf_token %}
+                        <table align="center">
+                            <tr>
+                                <th>
+                                    <span class="password-text">Старый пароль:</span>
+                                </th>
+
+                            </tr>
+                            <tr>
+                                <th>
+                                    {{ form_pass.old_pass }}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <span class="password-text">Новый пароль:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {{ form_pass.new_pass }}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <span class="password-text">Ещё раз:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {{ form_pass.new_pass_rep }}
+                                </th>
+                            </tr>
+                        </table>
+                        <div class="button-four">
+                            <button type="submit" class="button-text">Сохранить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-<br>
-<div id="avatar_upload">
-    <form enctype="multipart/form-data" method="post">
-        {% csrf_token %}
-        <label>Ваша аватарка:</label>
-        <br><br>
-        {{ImgForm.image}}
-        <br><br>
-        <input type="submit" class=button-container-green value="Сохранить" style=" font-size: 11px;"></input>
-    </form>
-</div>
-<br>
-
-<input value="Изменить пароль" type="button" class="button-container" style=" font-size: 11px;" onclick="disp(document.getElementById('pass'))" />
-<div id="pass" title="Смена пароля" style="display: none;">
-    <form method="POST" >
-        {% csrf_token %}
-       <table width="100%" height="100%">
-        <tr style=" font-size: 22pt;">
-            <th>Старый пароль:</th>
-
-            <th>Новый пароль:</th>
-
-            <th>Новый пароль еще разок:</th>
-        </tr>
-        <tr>
-            <th><br></th>
-            <th><br></th>
-            <th><br></th>
-         </tr>
-        <tr>
-           <th>{{ form_pass.old_pass }}</th>
-           <th>{{ form_pass.new_pass }}</th>
-           <th> {{ form_pass.new_pass_rep }}</th>
-        </tr>
-        <tr>
-            <th><br></th>
-            <th><br></th>
-            <th><br></th>
-         </tr>
-        <tr>
-            <th></th>
-            <th><input type="submit"  class="button-container-green" style=" font-size: 11px;" value="Cохрнаить изменения"></th>
-            <th></th>
-         </tr>
-       </table>
-    </form>
-</div>
-</div>
-{{message}}
-
-
+{{ message }}
 </body>
 </html>
+
+
