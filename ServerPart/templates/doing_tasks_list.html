@@ -1,40 +1,149 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Voting list</title>
-    {% load static %}
-    <link href="https://fonts.googleapis.com/css?family=Poiret+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/basic-css.css' %}">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/time_style.css'%}" />
-     <style>
-        .layer { overflow: scroll; /* Добавляем полосы прокрутки */
- width: 100%; /* Ширина блока */
- height: 100%; /* Высота блока */
- padding: 150px; /* Поля вокруг текста */
- border: solid 1px black; /* Параметры рамки */
- }
-    </style>
+<!DOCTYPE html>
+<title>Текущие задачи</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="utf-8"/>
+<meta property="twitter:card" content="summary_large_image"/>
+
+<style data-tag="reset-style-sheet">
+    html {
+        line-height: 1.15;
+    }
+
+    body {
+        margin: 0;
+    }
+
+    * {
+        box-sizing: border-box;
+        border-width: 0;
+        border-style: solid;
+    }
+
+    p, li, ul, pre, div, h1, h2, h3, h4, h5, h6, figure, blockquote, figcaption {
+        margin: 0;
+        padding: 0;
+    }
+
+    button {
+        background-color: transparent;
+    }
+
+    button, input, optgroup, select, textarea {
+        font-family: inherit;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 0;
+    }
+
+    button, select {
+        text-transform: none;
+    }
+
+    button, [type="button"], [type="reset"], [type="submit"] {
+        -webkit-appearance: button;
+    }
+
+    button::-moz-focus-inner, [type="button"]::-moz-focus-inner, [type="reset"]::-moz-focus-inner, [type="submit"]::-moz-focus-inner {
+        border-style: none;
+        padding: 0;
+    }
+
+    button:-moz-focus, [type="button"]:-moz-focus, [type="reset"]:-moz-focus, [type="submit"]:-moz-focus {
+        outline: 1px dotted ButtonText;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: inherit;
+    }
+
+    input {
+        padding: 2px 4px;
+    }
+
+    img {
+        display: block;
+    }
+
+    html {
+        scroll-behavior: smooth
+    }
+</style>
+<style data-tag="default-style-sheet">
+    html {
+        font-family: Inter;
+        font-size: 16px;
+    }
+
+    body {
+        font-weight: 400;
+        font-style: normal;
+        text-decoration: none;
+        text-transform: none;
+        letter-spacing: normal;
+        line-height: 1.15;
+        color: var(--dl-color-gray-black);
+        background-color: var(--dl-color-gray-white);
+
+    }
+</style>
+<link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+        data-tag="font"
+/>
+<link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+        data-tag="font"
+/>
+<link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+        data-tag="font"
+/>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/task_list.css' %}">
+<link rel="stylesheet" href="{% static 'css/key.css' %}">
 </head>
 <body>
 {% include "menu.html" %}
-<div class="layer">
-<div id="voting-list">
-    {% if tasks_count > 0 %}
-        {% for taks in tasks_list %}
-        <div id="voting{{taks.id}}">
-            <p>
-                <a href="../../show/{{taks.id}}"><label>{{taks.name}}</label></a>
-            </p>
+<div>
+    <link href="./frame.css" rel="stylesheet"/>
+
+    <div class="container">
+        <div class="group-1">
+            <img
+                    src="{% static 'img/main.png' %}"
+                    alt="main"
+                    class="picture"
+            />
         </div>
-        {% endfor %}
-    {% else %}
-        <label>У вас нет заданий в исполнении</label>
-    {% endif %}
-</div>
+        <span class="title-text"><span>Текущие задания</span></span>
+        <span class="lower-title-text">
+            <span>Отслеживайте текущие задания</span>
+          </span>
+        <div class="tasks-container">
+            <div id="div1" style="display: block">
+                <table align="left" cellspacing="20">
+                    {% if tasks_count > 0 %}
+
+                        {% for task in tasks_list %}
+                            <tr>
+                                <th>
+                                    <a href="/show/{{ task.id }}"><span
+                                            class="taskfield-text">{{ task.name }}</span></a>
+                                </th>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+        {% if tasks_count == 0 %}
+            <span class="lower-title-text1"><span>У вас нет заданий в исполнении</span></span>
+        {% endif %}
     </div>
+</div>
 </body>
 </html>
