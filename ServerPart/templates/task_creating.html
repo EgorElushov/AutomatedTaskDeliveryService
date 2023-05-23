@@ -60,17 +60,10 @@
             href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
             data-tag="font"
     />
-<<<<<<< HEAD
     <script
             src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"></script>
-=======
-     <script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
->>>>>>> d5c2de5901add104b468a99101552b6135d8d170
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.js"></script>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/key.css' %}">
@@ -78,58 +71,12 @@
 </head>
 <body>
 {% include "menu.html" %}
-<<<<<<< HEAD
 <div class="container">
     <span class="title-text"><span>Редактор задач</span></span>
     <span class="lower-title-text">
             <span>Отметьте задания, необходимые для исполнения</span>
           </span>
     <div class="layer">
-=======
-<div style="height: 100px"></div>
-<div class="layer">
-
-    <form id="task-form" method="POST">
-         {% csrf_token %}
-        <label>Название:</label><br>
-        <input type="text" minlength="1" id="task-name"> <br> <!-- имя !-->
-        <label for="id_description">Description:</label>
-        <textarea name="description" cols="40" rows="10" maxlength="1000" required id="id_description"></textarea>
-    </form>
-<div id="img-container"> </div>
-<div id="input-container">
-
-    <button id="save-form" type="button" class="button-container-green">Сохранить</button>
-    <button id="add-pic" type="button" class="button-container-green">Добавить картинку</button>
-    <button id="add-end-date-button" class="button-container-green" type="button" onclick="style.display='none'">Добавить дату окончания</button>
-    <script>
-        var dateBtn = document.getElementById('add-end-date-button')
-        dateBtn.addEventListener('click', function() {
-            let container = document.getElementById('input-container')
-            let inputWrapper = document.createElement('div')
-            let date = document.createElement('input')
-            date.setAttribute('type', 'date')
-            date.setAttribute('id', 'date')
-            var ld = new Date();
-            date.setAttribute('min', ld.getFullYear() + "-" + ld.getMonth() + 1 + "-" + ld.getDate())
-            let time = document.createElement('input')
-            time.setAttribute('type', 'time')
-            time.setAttribute('id', 'time')
-            let btnDanger = document.createElement('button')
-            btnDanger.setAttribute('type', 'button')
-            btnDanger.classList.add('btn', 'button-container')
-            btnDanger.innerText = 'Без времени окончания'
-            inputWrapper.append(date)
-            inputWrapper.append(time)
-            inputWrapper.append(btnDanger)
-            container.append(inputWrapper)
-            btnDanger.addEventListener('click', ()=>{
-                inputWrapper.remove()
-                document.getElementById('add-end-date-button').style.display = 'block'
-            })
-        })
-    </script>
->>>>>>> d5c2de5901add104b468a99101552b6135d8d170
 
         <form id="task-form" method="POST">
             {% csrf_token %}
@@ -141,7 +88,6 @@
         <div id="img-container"></div>
         <div id="input-container">
 
-<<<<<<< HEAD
             <button id="save-form" type="button" class="button-container-green">Сохранить</button>
             <button id="add-pic" type="button" class="button-container-green">Добавить картинку</button>
             <button id="add-end-date-button" class="button-container-green" type="button"
@@ -323,150 +269,3 @@
 </script>
 </body>
 </html>
-=======
-
-<script>
-var x, i, j, selElmnt, a, b, c;
-/*look for any elements with the class "custom-select":*/
-x = document.getElementsByClassName("custom-select");
-for (i = 0; i < x.length; i++) {
-  selElmnt = x[i].getElementsByTagName("select")[0];
-  /*for each element, create a new DIV that will act as the selected item:*/
-  a = document.createElement("DIV");
-  a.setAttribute("class", "select-selected");
-  a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
-  x[i].appendChild(a);
-  /*for each element, create a new DIV that will contain the option list:*/
-  b = document.createElement("DIV");
-  b.setAttribute("class", "select-items select-hide");
-  for (j = 1; j < selElmnt.length; j++) {
-    /*for each option in the original select element,
-    create a new DIV that will act as an option item:*/
-    c = document.createElement("DIV");
-    c.innerHTML = selElmnt.options[j].innerHTML;
-    c.addEventListener("click", function(e) {
-        /*when an item is clicked, update the original select box,
-        and the selected item:*/
-        var y, i, k, s, h;
-        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
-        h = this.parentNode.previousSibling;
-        for (i = 0; i < s.length; i++) {
-          if (s.options[i].innerHTML == this.innerHTML) {
-            s.selectedIndex = i;
-            h.innerHTML = this.innerHTML;
-            y = this.parentNode.getElementsByClassName("same-as-selected");
-            for (k = 0; k < y.length; k++) {
-              y[k].removeAttribute("class");
-            }
-            this.setAttribute("class", "same-as-selected");
-            break;
-          }
-        }
-        h.click();
-    });
-    b.appendChild(c);
-  }
-  x[i].appendChild(b);
-  a.addEventListener("click", function(e) {
-      /*when the select box is clicked, close any other select boxes,
-      and open/close the current select box:*/
-      e.stopPropagation();
-      closeAllSelect(this);
-      this.nextSibling.classList.toggle("select-hide");
-      this.classList.toggle("select-arrow-active");
-    });
-}
-function closeAllSelect(elmnt) {
-  /*a function that will close all select boxes in the document,
-  except the current select box:*/
-  var x, y, i, arrNo = [];
-  x = document.getElementsByClassName("select-items");
-  y = document.getElementsByClassName("select-selected");
-  for (i = 0; i < y.length; i++) {
-    if (elmnt == y[i]) {
-      arrNo.push(i)
-    } else {
-      y[i].classList.remove("select-arrow-active");
-    }
-  }
-  for (i = 0; i < x.length; i++) {
-    if (arrNo.indexOf(i)) {
-      x[i].classList.add("select-hide");
-    }
-  }
-}
-/*if the user clicks anywhere outside the select box,
-then close all select boxes:*/
-document.addEventListener("click", closeAllSelect);
-</script>
-    <script>
-        let pictures_amount = 0;  // Счетчик картинок
-        let picBtn = document.getElementById('add-pic') //  Кнопка добавить картинку
-        picBtn.addEventListener('click', function(event) { //  Добавление события на кнопку добавить картинку
-            console.log('pic-clicked', event);
-            if(pictures_amount >= 10){
-                 alert("Невозможно добавить более десяти картинок"); // Проверка на количество картинок
-            } else {
-                pictures_amount = pictures_amount+1 // Изменение счетчика
-                let container = document.getElementById('img-container')
-                let inputWrapper = document.createElement('div')  // Создание div'а с картинкой
-                let btnDanger = document.createElement('button')  // Создание кнопку удалить картинку
-                btnDanger.setAttribute('type', 'button')
-                btnDanger.classList.add('btn', 'button-container')
-                btnDanger.innerText = 'Удалить'
-                let image = document.createElement('input')
-                image.setAttribute('type', 'file')
-                image.setAttribute('accept', 'image/png, image/jpeg')  // Допустимые типы файлов
-                image.setAttribute('style', 'color:transparent')    // Скрывает надпись "Выберете файл"
-                image.classList.add('my-fantastic-img')
-                inputWrapper.append(image)  // Добавление div'а на страницу
-                inputWrapper.append(btnDanger)
-                container.append(inputWrapper)
-                btnDanger.addEventListener('click', ()=>{ // Удаление картинки
-                    pictures_amount = pictures_amount-1;
-                    inputWrapper.remove()
-                })
-            }
-         })
-         // Пост-запрос и все с ним связанное
-        let saveBtn = document.getElementById('save-form')  // Кнопка сохранить
-        saveBtn.addEventListener('click', ()=> {
-            let inputs = document.getElementsByClassName('custom-inputI')
-            var result_img = []
-            if (pictures_amount != 0) {
-                let inputs_img = document.querySelectorAll('.my-fantastic-img')
-                for (let i = 0; i < inputs_img.length; i++) {
-                    result_img.push(inputs_img[i].files[0])  // Запись картинок в массив
-                }
-            }
-            let task_name = $('#task-name').val();
-            let token = '{{csrf_token}}'
-            let end_date = $('#date').val();
-            let end_time = $('#time').val();
-            const formData = new FormData();
-            for (let i = 0; i < result_img.length; i++) {
-                formData.append("images", result_img[i])
-            }
-            let description = $('#id_description').val();
-            formData.append("img_amount", pictures_amount);
-            formData.append("name", task_name);
-            formData.append("end_date", end_date);
-            formData.append("end_time", end_time);
-            formData.append("description", description);
-            console.log(formData)
-            axios.post('/create_task/', formData,
-                {headers: {"X-CSRFToken": token, 'Content-Type': 'multipart/form-data'}}).then(response => {
-                console.log('its ok', response)
-            }).catch(error => {
-                console.log('err', error)
-            })
-            $(location).attr('href', '/task-list')
-        }
-        )
-    </script>
-</div>
-</div>
-
-</body>
-
->>>>>>> d5c2de5901add104b468a99101552b6135d8d170
