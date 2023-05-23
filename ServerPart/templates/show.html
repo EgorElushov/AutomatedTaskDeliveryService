@@ -10,6 +10,11 @@
             }
         }
     </script>
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.js"></script>
     <title>{{ task.name }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="utf-8"/>
@@ -64,6 +69,7 @@
     <link rel="stylesheet" href="{% static 'css/key.css' %}">
     <link rel="stylesheet" href="{% static 'css/show.css' %}">
     <link rel="stylesheet" href="{% static 'css/basic-css.css' %}">
+
 </head>
 <body>
 {% include "menu.html" %}
@@ -134,103 +140,34 @@
             <div class="comment-container">
                 <div id="vote">
                     {% if deadline_overdue == False %}
-                        <div id='timer'></div>
-                        <script>
-                            function timer() {
-                                var nowDate = new Date();
-                                var achiveDate = new Date({{ task.deadline.year }}, {{ task.deadline.month }} -1, {{ task.deadline.day }}, {{ task.deadline.hour }}, {{ task.deadline.minute }}, 0); //Задаем дату, к которой будет осуществляться обратный отсчет
-                                var result = (achiveDate - nowDate) + 1000;
-                                if (result < 0) {
-                                    var elmnt = document.getElementById('timer');
-                                    elmnt.innerHTML = ' - : - - : - - : - - ';
-                                    return undefined;
-                                }
-                                var seconds = Math.floor((result / 1000) % 60);
-                                var minutes = Math.floor((result / 1000 / 60) % 60);
-                                var hours = Math.floor((result / 1000 / 60 / 60) % 24);
-                                var days = Math.floor(result / 1000 / 60 / 60 / 24);
-                                if (seconds < 10) seconds = '0' + seconds;
-                                if (minutes < 10) minutes = '0' + minutes;
-                                if (hours < 10) hours = '0' + hours;
-                                var elmnt = document.getElementById('timer');
-                                elmnt.innerHTML = days + ':' + hours + ':' + minutes + ':' + seconds;
-                                setTimeout(timer, 1000);
-                            }
+                        <div id='timer' style="height: 100px; width: 100px"></div>
 
-                            window.onload = function () {
-                                timer();
-                            }
-                        </script>
                     {% endif %}
                 </div>
-
-
                 <div id="likes">
-
-
                     <script>
-                        let likeBtn = document.getElementById('like-button')
-                        likeBtn.addEventListener('click', () => {
-                            if (!{{ exists }}) {
-
+                        window.onload = function() {
+                            let doneBtn = document.getElementById('done-button')
+                            doneBtn.addEventListener('click', () => {
                                 $.ajax({
                                     type: "POST",
                                     url: '/show/{{task.id}}',
                                     data: {
                                         csrfmiddlewaretoken: "{{ csrf_token }}",
-                                        action: 'add'
+                                        action: 'done'
                                     },
-
                                     success: function () {
-                                        console.log('like work')
                                         location.reload()
                                     },
                                 });
-
-                            } else {
-                                $.ajax({
-                                    type: "POST",
-                                    url: '/show/{{task.id}}',
-                                    data: {
-                                        csrfmiddlewaretoken: "{{ csrf_token }}",
-                                        action: 'delete'
-                                    },
-
-                                    success: function () {
-                                        console.log('like work')
-                                        location.reload()
-                                    },
-                                });
-
-                            }
-                        })
-                    </script>
-                    <script>
-                        let doneBtn = document.getElementById('done-button')
-                        doneBtn.addEventListener('click', () => {
-                            $.ajax({
-                                type: "POST",
-                                url: '/show/{{task.id}}',
-                                data: {
-                                    csrfmiddlewaretoken: "{{ csrf_token }}",
-                                    action: 'done'
-                                },
-
-                                success: function () {
-                                    console.log('like work')
-                                    location.reload()
-                                },
                             });
-                        })
+                        }
                     </script>
                 </div>
-
                 <div id="comment-section">
                     <div id="comment-edit">
                         <form method="POST">
                             {% csrf_token %}
-
-
                             <div class=comment>
                                 {{ CommentForm.comment_text }}
                             </div>
@@ -267,5 +204,67 @@
             </div>
         </div>
     </div>
+</div>
+<script>
+                        window.onload = function() {
+                            let likeBtn = document.getElementById('like-button')
+                            likeBtn.addEventListener('click', () => {
+                                if (!{{ exists }}) {
+                                    $.ajax({
+                                        type: "POST",
+                                        url: '/show/{{task.id}}',
+                                        data: {
+                                            csrfmiddlewaretoken: "{{ csrf_token }}",
+                                            action: 'add'
+                                        },
+                                        success: function () {
+                                            location.reload()
+                                        },
+                                    });
+                                } else {
+                                    $.ajax({
+                                        type: "POST",
+                                        url: '/show/{{task.id}}',
+                                        data: {
+                                            csrfmiddlewaretoken: "{{ csrf_token }}",
+                                            action: 'delete'
+                                        },
+
+                                        success: function () {
+                                            location.reload()
+                                        },
+                                    });
+
+                                }
+                            })
+                        }
+                    </script>
+<script>
+                            function timer() {
+                                var nowDate = new Date();
+                                var achiveDate = new Date({{ task.deadline.year }}, {{ task.deadline.month }} - 1, {{ task.deadline.day }}, {{ task.deadline.hour }}, {{ task.deadline.minute }}, 0); //Задаем дату, к которой будет осуществляться обратный отсчет
+                                var result = (achiveDate - nowDate) + 1000;
+                                if (result < 0) {
+                                    var elmnt = document.getElementById('timer');
+                                    elmnt.innerHTML = ' - : - - : - - : - - ';
+                                    return undefined;
+                                }
+                                var seconds = Math.floor((result / 1000) % 60);
+                                var minutes = Math.floor((result / 1000 / 60) % 60);
+                                var hours = Math.floor((result / 1000 / 60 / 60) % 24);
+                                var days = Math.floor(result / 1000 / 60 / 60 / 24);
+                                if (seconds < 10) seconds = '0' + seconds;
+                                if (minutes < 10) minutes = '0' + minutes;
+                                if (hours < 10) hours = '0' + hours;
+                                var elmnt = document.getElementById('timer');
+                                elmnt.innerHTML = days + ':' + hours + ':' + minutes + ':' + seconds;
+                                setTimeout(timer, 1000);
+                            }
+
+                            window.onload = function () {
+                                timer();
+                            }
+
+                        </script>
 </body>
 </html>
