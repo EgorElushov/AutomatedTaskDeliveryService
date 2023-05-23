@@ -84,7 +84,7 @@ def get_client_ip(request):
 @login_required
 def task_list(request):
     context = {
-        "task_list_by_date": Task.objects.order_by("date_created"),
+        "task_list_by_date": Task.objects.filter(is_done=False).order_by("date_created"),
         "user": request.user
     }
     try:
