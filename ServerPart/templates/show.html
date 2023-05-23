@@ -230,6 +230,13 @@
                     </script>
                 </div>
 
+            <div id="task_images">
+            {% for pic in task_images%}
+                <img src='{{pic.img.url}}' height="150">
+                {% if loop.index == 4 %}<br>{% endif %}
+            {% endfor %}
+</div>
+
                 <div id="comment-section">
                     <div id="comment-edit">
                         <form method="POST">
