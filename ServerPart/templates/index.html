@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Список заданий</title>
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/basic-css.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/time_style.css' %}"/>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    <style>
+        .layer {
+            overflow: scroll; /* Добавляем полосы прокрутки */
+            width: 100%; /* Ширина блока */
+            height: 100%; /* Высота блока */
+            padding: 150px; /* Поля вокруг текста */
+            border: solid 1px black; /* Параметры рамки */
+        }
+    </style>
+
+</head>
+<body>
+{% include "menu.html" %}
+<div class="layer">
+    <div id="head"></div>
+    <div id="buttons-space">
+        <script>
+            function create_task() {
+                $.ajax({
+                    type: "GET",
+                    url: "/create_task/",
+                    success: function () {
+                        console.log('OK')
+                    },
+                })
+            }
+        </script>
+    </div>
+    <br>
+    <label>Задания:</label>
+    <div id="task-list">
+        <div id="div1" style="display: block">
+            {% for task in task_list_by_date %}
+                <p><a href="/show/{{ task.id }}"><label>{{ task.name }}</label></a></p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
