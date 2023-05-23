@@ -73,24 +73,21 @@
 {% include "menu.html" %}
 <div class="container">
     <span class="title-text"><span>Редактор задач</span></span>
-    <span class="lower-title-text">
-            <span>Отметьте задания, необходимые для исполнения</span>
-          </span>
-    <div class="layer">
+    <div class="lk-container">
 
         <form id="task-form" method="POST">
             {% csrf_token %}
-            <label>Название:</label><br>
-            <input type="text" minlength="1" id="task-name"> <br> <!-- имя !-->
-            <label for="id_description">Description:</label>
-            <textarea name="description" cols="40" rows="10" maxlength="1000" required id="id_description"></textarea>
+            <label class="lower-title-text">Название:</label><br>
+            <input type="text" minlength="1" id="task-name" class="lower-title-text"> <br> <!-- имя !-->
+            <label for="id_description" class="description-text">Описание:</label>
+            <textarea name="description" cols="40" rows="10" maxlength="1000" required id="id_description"class="description-box"></textarea>
         </form>
         <div id="img-container"></div>
         <div id="input-container">
 
-            <button id="save-form" type="button" class="button-container-green">Сохранить</button>
-            <button id="add-pic" type="button" class="button-container-green">Добавить картинку</button>
-            <button id="add-end-date-button" class="button-container-green" type="button"
+            <button id="save-form" type="button" class="button-three">Сохранить</button>
+            <button id="add-pic" type="button" class="button-five">Добавить картинку</button>
+            <button id="add-end-date-button" class="button-five" type="button" style="top: 80%"
                     onclick="style.display='none'">Добавить дату окончания
             </button>
 
@@ -105,15 +102,20 @@
         let date = document.createElement('input')
         date.setAttribute('type', 'date')
         date.setAttribute('id', 'date')
+        date.setAttribute('class', 'deadline-box');
         var ld = new Date();
         date.setAttribute('min', ld.getFullYear() + "-" + ld.getMonth() + 1 + "-" + ld.getDate())
         let time = document.createElement('input')
         time.setAttribute('type', 'time')
         time.setAttribute('id', 'time')
+        time.setAttribute('class', 'deadline-box');
+        time.setAttribute('style', 'top: 65%')
         let btnDanger = document.createElement('button')
         btnDanger.setAttribute('type', 'button')
         btnDanger.classList.add('btn', 'button-container')
         btnDanger.innerText = 'Без времени окончания'
+        btnDanger.setAttribute('class', 'button-five')
+        btnDanger.setAttribute('style', 'top: 80%')
         inputWrapper.append(date)
         inputWrapper.append(time)
         inputWrapper.append(btnDanger)
@@ -215,13 +217,14 @@
             let inputWrapper = document.createElement('div')  // Создание div'а с картинкой
             let btnDanger = document.createElement('button')  // Создание кнопку удалить картинку
             btnDanger.setAttribute('type', 'button')
-            btnDanger.classList.add('btn', 'button-container')
             btnDanger.innerText = 'Удалить'
+            btnDanger.setAttribute('class', 'button-delete');
+            btnDanger.setAttribute('style', 'top: ' + (50+5*pictures_amount).toString() + '%')
             let image = document.createElement('input')
             image.setAttribute('type', 'file')
             image.setAttribute('accept', 'image/png, image/jpeg')  // Допустимые типы файлов
-            image.setAttribute('style', 'color:transparent')    // Скрывает надпись "Выберете файл"
-            image.classList.add('my-fantastic-img')
+            image.setAttribute('class', 'image-box');
+            image.setAttribute('style', 'top: ' + (50+5*pictures_amount).toString() + '%')
             inputWrapper.append(image)  // Добавление div'а на страницу
             inputWrapper.append(btnDanger)
             container.append(inputWrapper)
@@ -246,6 +249,7 @@
             let token = '{{csrf_token}}'
             let end_date = $('#date').val();
             let end_time = $('#time').val();
+            alert(end_time);
             const formData = new FormData();
             for (let i = 0; i < result_img.length; i++) {
                 formData.append("images", result_img[i])

@@ -193,9 +193,8 @@ def create_task(request):
         date_created = timezone.now()
         end_date = request.POST.get('end_date', None)
         end_time = request.POST.get('end_time', None)
+        end_time = '00:00'
         if end_date != 'undefined':
-            if end_time == 'undefined':
-                end_time = '00:00'
             task = Task(
                 name=name,
                 author=author,
